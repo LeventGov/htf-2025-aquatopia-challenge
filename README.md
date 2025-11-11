@@ -57,9 +57,7 @@ List:
 
 #### cfn-students.yml
 At the top of the files, there is a parameter called "TeamName", enter your team name in the *Default* attribute (excluding spaces).  
-Example: "Hack Tuah" becomes "HackTuah".  
-
-You will also need to have an API key for both SendGrid and Teams.
+Example: "Hack Tuah" becomes "HackTuah".
 
 ### General Notice
 Because this is a hackathon, keep in mind that we are using free tiers of many of the tools that you will be integrating with.  
@@ -72,15 +70,19 @@ This way you will lose the least amount of time during the hackathon.
 
 ### Levels
 
-#### Level 1
+After finishing a level, give the judges a notice. That way they can keep track of who's first
 
-#### Level 2
+#### Level 1 - [Sonar Signal Classifier](./src/fn-signal-classifier/README.md)
+Ingest ingcoming EventBridge events containing sonar observations. Validate required fields, classify each event, and publishes to the appropriate **SNS** topic.
 
-#### Level 3
+#### Level 2 & 3 - [Sonar Observation Ingest](./src/fn-observation-ingest/README.md)
+Ingest **SNS** messages containing sonar events and write them to the correct destination.
 
-#### Level 4
+#### Level 4 - [Dark Signal Decipherer](./src/fn-dark-signal-decipherer/README.md)
+Ingest ingests **SNS** messages that may contain **dark signals**. Decode and **decipher** them using a monoalphabetic substitution key, and forwards the plaintext to an **SQS** queue.
 
-#### Level 5
+#### Level 5 - [Sonar Message Translator](./src/fn-message-translator/README.md)
+Read and translate the Dark Messages. Then POST them to via webhook to a platform of your choosing
 
 ---
 
@@ -107,9 +109,6 @@ sam local invoke Challenge4Lambda --event ./payloads/dark-signal-decipherer.json
 
 sam local invoke Challenge5Lambda --event ./payloads/message-translator.json -t cfn-students.yaml
 
-# Deploy Project to AWS using bash
+# Deploy Project to AWS using bash or git bash/wsl on windows
 bash deployStudent.sh
-
-# Deploy Project to AWS using PowerShell
-.\deployStudent.ps1
 ```

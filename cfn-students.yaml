@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  SAM Template for the i8c Hack The Future 2025 Challenge (Team <TeamName>)
+  SAM Template for the i8c Hack The Future 2025 Challenge (Team Hydra)
 
 Globals:
   Function:
@@ -10,7 +10,7 @@ Globals:
 
 Parameters:
   TeamName:
-    Default: <TEAMNAME>
+    Default: Hydra
     Type: String
 
 Resources:

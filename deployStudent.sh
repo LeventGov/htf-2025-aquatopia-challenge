@@ -1,5 +1,5 @@
 #!/bin/bash
-STACK_NAME="HTF25-<TEAMNAME>"
+STACK_NAME="HTF25-Hydra"
 MY_REGION="eu-central-1"
 MY_DEV_BUCKET="htf25-cfn-bucket"
 

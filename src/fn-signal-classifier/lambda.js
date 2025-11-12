@@ -16,12 +16,12 @@ exports.handler = async (event) => {
 
     if (!isDark) {
         // Create correct message
-        messageToSend = createMessage(event["detail"]);
+        messageToSend = createMessage(event);
     } else {
         // Create correct message
         messageToSend = {
             "type": "dark-signal",
-            "originalPayload": { detail: event["detail"] }
+            "originalPayload": event
         };
     }
 
@@ -30,7 +30,8 @@ exports.handler = async (event) => {
     messageToSend != null ? await sendToSNS(messageToSend) : null;
 }
 
-function createMessage(detail) {
+function createMessage(event) {
+    let detail = event["detail"]
     let type = detail["type"];
     let intensity = detail["intensity"];
 
@@ -38,31 +39,31 @@ function createMessage(detail) {
         if (intensity < 3) {
             return {
                 "type": "observation",
-                "originalPayload": { detail: detail }
+                "originalPayload": event
             };
         } else if (intensity >= 3) {
             return {
                 "type": "rare-observation",
-                "originalPayload": { detail: detail }
+                "originalPayload": event
             };
         }
     }
     else if (type === "hazard" && intensity >= 2) {
         return {
             "type": "alert",
-            "originalPayload": { detail: detail }
+            "originalPayload": event
         }
     }
     else if (type === "anomaly" && intensity >= 2) {
         return {
             "type": "alert",
-            "originalPayload": { detail: detail }
+            "originalPayload": event
         }
     }
 
     return {
         "type": "observation",
-        "originalPayload": { detail: detail }
+        "originalPayload": event
     }
 }
 
